@@ -1,7 +1,15 @@
 const express = require('express');
+// const middlewareErrors = require('./middlewares/error');
+const routes = require('./routes');
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(routes);
+
+// app.use(middlewareErrors);
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.send();

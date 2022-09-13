@@ -2,9 +2,9 @@ const connection = require('../db');
 
 const getAll = async () => {
   const [result] = await connection.execute(
-    `SELECT StoreManager.sales_products.sale_id AS sale_id,
+    `SELECT StoreManager.sales_products.sale_id AS saleId,
     StoreManager.sales.date AS date,
-    StoreManager.sales_products.product_id AS product_id,
+    StoreManager.sales_products.product_id AS productId,
     StoreManager.sales_products.quantity AS quantity
     FROM StoreManager.sales_products
     INNER JOIN StoreManager.sales
@@ -18,7 +18,7 @@ const getSale = async (sale) => {
     .execute(
       `SELECT
       StoreManager.sales.date AS date,
-      StoreManager.sales_products.product_id AS product_id,
+      StoreManager.sales_products.product_id AS productId,
       StoreManager.sales_products.quantity AS quantity
       FROM StoreManager.sales_products
       INNER JOIN StoreManager.sales

@@ -6,10 +6,11 @@ const router = express.Router();
 
 router.post('/', salesValidation, async (req, res) => {
   try {
+    await salesService.verifyId(req.body);
     const result = await salesService.add(req.body);
     res.status(201).json(result);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(404).json({ message: err.message });
   }
 });
 

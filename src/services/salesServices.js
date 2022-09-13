@@ -2,28 +2,6 @@ const salesModels = require('../models/salesModels');
 
 // FAzer um middleware que faça map para item do body e validar se os produtos existem;
 
-const add = async (sales) => {
-  // console.log(sales);
-  // const productIDS = sales.map((sale) => sale.productId);
-  // Promise.all(productIDS.forEach((id) => {
-  //   const [rows] = salesModels.getSaleId(id);
-  //   if (rows.length !== 0) {
-  //     throw new Error('Product not found');
-  //   }
-  // }));
-  // const { id } = await salesModels.add(sales);
-  const row = await salesModels.addSaleDate();
-  // console.log(sales);
-  const insertedSalesPromise = [];
-  sales.map((sale) => insertedSalesPromise.push(salesModels.addOneSale(row.insertId, sale)));
-  await Promise.all(insertedSalesPromise);
-
-  return {
-    id: row.insertId,
-    itemsSold: sales,
-  };
-};
-
 const getAll = async (id = null) => {
   if (id) {
     const [row] = await salesModels.getSaleId(id);
@@ -35,7 +13,30 @@ const getAll = async (id = null) => {
   return salesModels.getAll();
 };
 
+const add = async (sales) => {
+  const row = await salesModels.addSaleDate();
+  const insertedSalesPromise = [];
+  sales.map((sale) => insertedSalesPromise.push(salesModels.addOneSale(row.insertId, sale)));
+  await Promise.all(insertedSalesPromise);
+  return {
+    id: row.insertId,
+    itemsSold: sales,
+  };
+};
+
+const verifyId = async (sales) => {
+  const allSales = await salesModels.getAll();
+  const productIDS = allSales.map((s) => s.product_id);
+  sales.forEach((sale) => {
+    if (!productIDS.includes(sale.productId)) {
+      throw new Error('Product not found');
+    }
+  });
+  // console.log('productsIDS', productIDS);
+};
+
 module.exports = {
   add,
   getAll,
+  verifyId,
 };

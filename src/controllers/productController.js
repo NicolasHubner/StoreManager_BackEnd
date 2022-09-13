@@ -24,13 +24,13 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', productValidation, async (req, res) => {
-  console.log('body', req.body.name);
+  // console.log('body', req.body.name);
 
   try {
     const result = await productService.add(req.body);
     res.status(201).json(result);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(err.status).json({ message: err.message });
   }
 });

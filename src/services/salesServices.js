@@ -26,9 +26,9 @@ const add = async (sales) => {
 
 const verifyId = async (sales) => {
   const allSales = await salesModels.getAll();
-  const productIDS = allSales.map((s) => s.product_id);
+  const productIDS = allSales.map((s) => s.productId);
   sales.forEach((sale) => {
-    if (!productIDS.includes(sale.productId)) {
+    if (productIDS.includes(sale.productId) === false) {
       throw new Error('Product not found');
     }
   });

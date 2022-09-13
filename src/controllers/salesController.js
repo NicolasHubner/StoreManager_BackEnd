@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ message: err.message });
-   }
+  }
 });
 
 router.get('/:id', async (req, res) => {
@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
   try {
     const result = await salesService.getAll(id);
     res.status(200).json(result);
-  } catch (err) { 
+  } catch (err) {
     res.status(404).json({ message: err.message });
   }
 });

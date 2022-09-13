@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     const [rows] = await productService.getAll();
     res.status(200).json(rows);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(404).json({ message: err.message });
   }
 });
 
@@ -19,7 +19,7 @@ router.get('/:id', async (req, res) => {
     const [row] = await productService.getAll(id);
     res.status(200).json(row);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(404).json({ message: err.message });
   }
 });
 

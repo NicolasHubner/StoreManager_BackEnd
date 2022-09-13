@@ -1,9 +1,18 @@
 const connection = require('../db');
 
-const getAll = () => connection.execute('SELECT * FROM StoreManager.products');
+const getAll = async () => {
+  const result = await connection.execute('SELECT * FROM StoreManager.products');
+  return result;
+};
 
-const getById = (id) =>
-  connection.execute('SELECT * FROM StoreManager.products WHERE id = ?', [id]);
+const getById = async (id) => {
+  const [result] = await connection
+    .execute('SELECT * FROM StoreManager.products WHERE id = ?', [id]);
+  if (result.length === 0) {
+    throw new Error('Product not found');
+  }
+  return result;
+};
 
 const add = async (name) => {
   const [row] = await

@@ -39,24 +39,13 @@ const addOneSale = async (id, { productId, quantity }) => {
         (sale_id, product_id, quantity)VALUES (?, ?, ?)`, [id, productId, quantity]);
   // console.log(result);
   return result;
-  // await Promise.all(sales.map((s) => {
-  //   const [result] = connection
-  //     .execute(`INSERT INTO StoreManager.sales_products
-  //       (sale_id, product_id, quantity) VALUES (?, ?, ?)`,
-  //       [row.insertId, s.productId, s.quantity]);
-  //   return result;
-  // }));
-  // const result = {
-  //   id: row.insertId,
-  // };
-  // return result;
 };
 
 const addSaleDate = async () => {
   const date = new Date();
   const [row] = await connection
     .execute('INSERT INTO StoreManager.sales (date) VALUES (?)', [date]);
-  console.log(row);
+  // console.log([row.insertId]);
   return row;
 };
 

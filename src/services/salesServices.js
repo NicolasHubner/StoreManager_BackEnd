@@ -16,7 +16,8 @@ const getAll = async (id = null) => {
 const add = async (sales) => {
   const row = await salesModels.addSaleDate();
   const insertedSalesPromise = [];
-  sales.map((sale) => insertedSalesPromise.push(salesModels.addOneSale(row.insertId, sale)));
+  sales.map((sale) => insertedSalesPromise
+      .push(salesModels.addOneSale(row.insertId, sale)));
   await Promise.all(insertedSalesPromise);
   return {
     id: row.insertId,
@@ -26,6 +27,7 @@ const add = async (sales) => {
 
 const verifyId = async (sales) => {
   const allSales = await salesModels.getAll();
+  console.log(sales);
   const productIDS = allSales.map((s) => s.productId);
   sales.forEach((sale) => {
     if (productIDS.includes(sale.productId) === false) {

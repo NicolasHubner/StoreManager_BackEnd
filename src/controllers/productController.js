@@ -13,6 +13,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/search', async (req, res) => {
+  const { q } = req.query;
+  try {
+    const result = await productService.search(q);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {

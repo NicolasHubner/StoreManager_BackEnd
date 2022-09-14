@@ -30,10 +30,22 @@ const deleteId = async (id) => {
   }
   await productModels.deleteId(id);
 };
+const search = async (searchText) => {
+  const [result] = await productModels.getAll();
+  if (searchText.length === 0) {
+    return result;
+  }
+  if (searchText.length > 0) {
+    console.log('ronaldo');
+    const resultOneProduct = result.filter((product) => product.name.includes(searchText));
+    return resultOneProduct;
+  }
+};
 
 module.exports = {
   getAll,
   add,
   update,
   deleteId,
+  search,
 };

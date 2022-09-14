@@ -24,7 +24,7 @@ describe('Teste do Product Controlle', async () => {
   it('Buscando o produto na rota product/2 e esperar status 200', async () => {
     sinon.stub(connection, 'execute').onFirstCall().resolves([[productList[1]]]);
     const res = await chai.request(app).get('/products/2').send();
-    console.log(res);
+    // console.log(res);
     expect(res.status).to.be.equal(200);
     expect(res.body.name).to.be.equal('Traje de encolhimento');
   })

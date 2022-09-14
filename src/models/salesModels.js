@@ -49,10 +49,15 @@ const addSaleDate = async () => {
   return row;
 };
 
+const deleteId = async (id) => {
+  const [row] = await connection.execute('DELETE FROM StoreManager.sales WHERE id = ?', [id]);
+  return row.affectedRows;
+};
 module.exports = {
   getAll,
   getSale,
   getSaleId,
   addSaleDate,
   addOneSale,
+  deleteId,
 };

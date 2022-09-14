@@ -37,8 +37,18 @@ const verifyId = async (sales) => {
   // console.log('productsIDS', productIDS);
 };
 
+const deleteId = async (id) => {
+  const allSales = await salesModels.getAll();
+  const verifiedId = allSales.find((product) => product.saleId === Number(id));
+  if (!verifiedId) {
+    throw new Error('Sale not found');
+  }
+  await salesModels.deleteId(id);
+};
+
 module.exports = {
   add,
   getAll,
   verifyId,
+  deleteId,
 };

@@ -53,6 +53,22 @@ const deleteId = async (id) => {
   const [row] = await connection.execute('DELETE FROM StoreManager.sales WHERE id = ?', [id]);
   return row.affectedRows;
 };
+
+const deleteSalesId = async (id) => {
+  const [row] = await connection
+    .execute('DELETE FROM StoreManager.sales_products WHERE sale_id = ?', [id]);
+  return row.affectedRows;
+};
+
+// const update = async (name, id) => {
+//   const [row] = await connection
+//     .execute('INSERT INTO StoreManager.sales (name, id) VALUES (?, ?)', [name, id]);
+//   const result = {
+//     id: row.insertId,
+//     name,
+//   };
+//   return result;
+// };
 module.exports = {
   getAll,
   getSale,
@@ -60,4 +76,5 @@ module.exports = {
   addSaleDate,
   addOneSale,
   deleteId,
+  deleteSalesId,
 };

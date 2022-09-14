@@ -13,8 +13,19 @@ const add = async ({ name }) => {
     name,
   };
 };
-
+const update = async (id, name) => {
+  const [allProducts] = await productModels.getAll();
+  const verifiedId = allProducts.find((product) => product.id === Number(id));
+  if (!verifiedId) {
+    throw new Error('Product not found');
+  }
+  const result = await productModels.update(name, id);
+  return result;
+};
+const deleteId = async (id) => productModels.deleteById(id);
 module.exports = {
   getAll,
   add,
+  update,
+  deleteId,
 };

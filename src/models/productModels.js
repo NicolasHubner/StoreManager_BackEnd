@@ -15,19 +15,34 @@ const getById = async (id) => {
 };
 
 const add = async (name) => {
-  // console.log(name);
   const row = await
     connection.execute('INSERT INTO StoreManager.products (name) VALUES (?)', [name]);
-  // console.log(row);
-  // console.log(row.insertId);
   const result = {
     id: row[0].insertId,
-    // name,
   };
   return result;
 };
+
+const deleteId = async (id) => {
+  const [row] = await connection.execute('DELETE FROM StoreManager.products WHERE id = ?', [id]);
+  return row.affectedRows;
+};
+
+const update = async (name, id) => {
+  await deleteId(id);
+  const [row] = await connection
+    .execute('INSERT INTO StoreManager.products (name, id) VALUES (?, ?)', [name, id]);
+  const result = {
+    id: row.insertId,
+    name,
+  };
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
   add,
+  deleteId,
+  update,
 };

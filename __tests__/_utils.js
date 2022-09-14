@@ -3,7 +3,7 @@ const path = require('path')
 const mysql = require('mysql2/promise')
 require('dotenv').config();
 const { cwd } = process
-console.log(process.env.MYSQL_HOST);
+
 const connect = () => mysql.createPool({
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,

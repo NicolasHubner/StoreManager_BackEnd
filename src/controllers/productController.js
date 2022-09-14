@@ -24,8 +24,6 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', productValidation, async (req, res) => {
-  // console.log('body', req.body.name);
-
   try {
     const result = await productService.add(req.body);
     res.status(201).json(result);
@@ -34,4 +32,16 @@ router.post('/', productValidation, async (req, res) => {
     res.status(err.status).json({ message: err.message });
   }
 });
+
+router.put('/:id', productValidation, async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  try {
+    const result = await productService.update(id, name);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+});
+
 module.exports = router;

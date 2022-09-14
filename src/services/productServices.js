@@ -22,7 +22,15 @@ const update = async (id, name) => {
   const result = await productModels.update(name, id);
   return result;
 };
-const deleteId = async (id) => productModels.deleteById(id);
+const deleteId = async (id) => {
+  const [allProducts] = await productModels.getAll();
+  const verifiedId = allProducts.find((product) => product.id === Number(id));
+  if (!verifiedId) {
+    throw new Error('Product not found');
+  }
+  await productModels.deleteId(id);
+};
+
 module.exports = {
   getAll,
   add,

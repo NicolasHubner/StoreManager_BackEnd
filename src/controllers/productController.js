@@ -43,5 +43,14 @@ router.put('/:id', productValidation, async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 });
+router.delete('/:id', async (req, res) => { 
+  const { id } = req.params;
+  try {
+    await productService.deleteId(id);
+    res.status(204).send();
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+});
 
 module.exports = router;

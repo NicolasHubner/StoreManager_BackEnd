@@ -56,7 +56,7 @@ const addSaleDate = async () => {
   const date = new Date();
   const [row] = await connection
     .execute('INSERT INTO StoreManager.sales (date) VALUES (?)', [date]);
-  // console.log(row);
+  console.log(row);
   return row;
 };
 
